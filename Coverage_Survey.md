@@ -59,27 +59,87 @@ https://skywalking.apache.org/docs/main/next/en/setup/backend/backend-mysql-moni
 **c/cpp:** skywalking cpp(github)
 
 https://github.com/SkyAPM/cpp2sky
+C++ 1481
+C/C++ Header 1081
+YAML 372
+Markdown 149
+Bourne Shell 119
+Starlark 81
+Python 66
+Protocol Buffers 16
+SUM 3365
 
 **java:** 官网
 
 https://github.com/apache/skywalking-java
+Java 112584
+Maven 22589
+YAML 21927
+Markdown 4783
+XML 3895
+Windows Module Definition 2641
+Bourne Shell 1616
+JSON 1436
+SQL 212
+DOS Batch 147
+Kotlin 105
+Scala 47
+Protocol Buffers 47
+make 41
+Python 32
+Dockerfile 25
+JSP 9
+SUM 172136
+
 
 **rust:** 官网
 
 https://github.com/apache/skywalking-rust
-
+Rust 2976
+YAML 437
+Markdown 269
+TOML 92
+Python 43
+Dockerfile 6
+SUM 3823
 **golang:** skywalking go(github)
 
 https://github.com/SkyAPM/go2sky
+Go 5353
+YAML 571
+Markdown 313
+make 32
+Bourne Shell 19
+SUM 6288
 
 **python:** 官网
 
 https://github.com/apache/skywalking-python
+Python 6331
+YAML 4117
+Markdown 1128
+make 122
+TOML 114
+Bourne Shell 38
+INI 20
+JSON 16
+Dockerfile 6
+SUm 11892
 
 **php:** 官网
 
 https://github.com/apache/skywalking-php
-
+Rust 3282
+YAML 1338
+PHP 262
+Markdown 261
+INI 180
+TOML 74
+XML 65
+m4 51
+Dockerfile 23
+JSON 17
+SUM 5553
 
 
 ### Pinpoint
@@ -141,6 +201,25 @@ https://github.com/pinpoint-apm/pinpoint/tree/master/plugins/mysql-jdbc
 **c/cpp:** 官网
 
 https://github.com/pinpoint-apm/pinpoint-c-agent
+C++ 7252
+Go 6509
+Python 2353
+C/C++ Header 2264
+PHP 1671
+Markdown 1564
+C 768
+Protocol Buffers 480
+HTML 419
+YAML 343
+CMake 139
+INI 61
+JSON 41
+Dockerfile 29
+m4 25
+XML 21
+SQL 13
+Bourne Shell 2
+SUM 23954
 
 **java:** pinpoint java(google/github)
 
@@ -149,6 +228,19 @@ https://github.com/pinpoint-apm/pinpoint-c-agent
 **js:** pinpoint js(google)
 
 https://github.com/pinpoint-apm/pinpoint-node-agent
+JavaScript 20473
+TypeScript 508
+JSON 434
+Swift 247
+Markdown 201
+Bourne Shell 131
+Java 113
+YAML 106
+DOS Batch 66
+CSS 34
+html 27
+Gradle 23
+SUM 22363
 
 **rust:** pinpoint rust(google/github)
 
@@ -157,6 +249,14 @@ https://github.com/pinpoint-apm/pinpoint-node-agent
 **golang:** 官网
 
 https://github.com/pinpoint-apm/pinpoint-go-agent
+Go 18781
+Markdown 1804
+Protocol Buffers 593
+YAML 51
+JSON 45
+Assembly 18
+C/C++ Header 11
+SUM 21303
 
 **python:** 官网
 
