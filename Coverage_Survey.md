@@ -59,6 +59,8 @@ https://skywalking.apache.org/docs/main/next/en/setup/backend/backend-mysql-moni
 **c/cpp:** skywalking cpp(github)
 
 https://github.com/SkyAPM/cpp2sky
+
+
 C++ 1481
 C/C++ Header 1081
 YAML 372
@@ -69,9 +71,12 @@ Python 66
 Protocol Buffers 16
 SUM 3365
 
+
 **java:** 官网
 
 https://github.com/apache/skywalking-java
+
+
 Java 112584
 Maven 22589
 YAML 21927
@@ -95,6 +100,8 @@ SUM 172136
 **rust:** 官网
 
 https://github.com/apache/skywalking-rust
+
+
 Rust 2976
 YAML 437
 Markdown 269
@@ -102,9 +109,13 @@ TOML 92
 Python 43
 Dockerfile 6
 SUM 3823
+
+
 **golang:** skywalking go(github)
 
 https://github.com/SkyAPM/go2sky
+
+
 Go 5353
 YAML 571
 Markdown 313
@@ -112,9 +123,12 @@ make 32
 Bourne Shell 19
 SUM 6288
 
+
 **python:** 官网
 
 https://github.com/apache/skywalking-python
+
+
 Python 6331
 YAML 4117
 Markdown 1128
@@ -126,9 +140,12 @@ JSON 16
 Dockerfile 6
 SUm 11892
 
+
 **php:** 官网
 
 https://github.com/apache/skywalking-php
+
+
 Rust 3282
 YAML 1338
 PHP 262
@@ -201,6 +218,8 @@ https://github.com/pinpoint-apm/pinpoint/tree/master/plugins/mysql-jdbc
 **c/cpp:** 官网
 
 https://github.com/pinpoint-apm/pinpoint-c-agent
+
+
 C++ 7252
 Go 6509
 Python 2353
@@ -221,6 +240,7 @@ SQL 13
 Bourne Shell 2
 SUM 23954
 
+
 **java:** pinpoint java(google/github)
 
 -
@@ -228,6 +248,8 @@ SUM 23954
 **js:** pinpoint js(google)
 
 https://github.com/pinpoint-apm/pinpoint-node-agent
+
+
 JavaScript 20473
 TypeScript 508
 JSON 434
@@ -242,6 +264,7 @@ html 27
 Gradle 23
 SUM 22363
 
+
 **rust:** pinpoint rust(google/github)
 
 -
@@ -249,6 +272,8 @@ SUM 22363
 **golang:** 官网
 
 https://github.com/pinpoint-apm/pinpoint-go-agent
+
+
 Go 18781
 Markdown 1804
 Protocol Buffers 593
@@ -257,6 +282,7 @@ JSON 45
 Assembly 18
 C/C++ Header 11
 SUM 21303
+
 
 **python:** 官网
 
@@ -330,6 +356,8 @@ https://zipkin.io/pages/tracers_instrumentation.html
 **c/cpp:** 官网
 
 https://github.com/flier/zipkin-cpp
+
+
 C 13483
 C/C++ Header 4907
 C++ 2606
@@ -343,10 +371,11 @@ Bourne Shell 11
 SUM 22819
 
 
-
 **java:** 官网
 
 https://github.com/openzipkin/brave
+
+
 Java 59890
 Markdown 4633
 Maven 4414
@@ -357,9 +386,12 @@ XML 57
 Protocol Buffers 18
 SUM 69596
 
+
 **js:** zipkin js(google)
 
 https://github.com/openzipkin/zipkin-js
+
+
 JavaScript 8918
 Markdown 920
 TypeScript 775
@@ -368,16 +400,23 @@ YAML 86
 Protocol Buffers 19
 SUM 11443
 
+
 **rust:** zipkin rust(github)
 
 https://github.com/flier/rust-zipkin
+
+
 rust 3351
 TOML 107
 YAML 34
+SUM 3492
+
 
 **golang:** 官网
 
 https://github.com/openzipkin/zipkin-go
+
+
 Go 8653
 Markdown 91
 YAML 77
@@ -385,9 +424,12 @@ Protocol Buffers 62
 make 21
 SUM 8904
 
+
 **python:** 官网
 
 https://pypi.org/project/py-zipkin/
+
+
 Python 5714
 reStructuredText 222
 Markdown 196
@@ -397,16 +439,17 @@ Protocol Buffers 44
 make 29
 SUM 6354
 
+
 **php:** 官网
 
 https://github.com/jcchavezs/zipkin-instrumentation-guzzle
+
+
 PHP 236
 Markdown 44
 JSON 39
 YAML 37
 SUM 356
-
-
 
 
 
@@ -471,6 +514,8 @@ https://www.jaegertracing.io/docs/1.39/client-libraries/
 **c/cpp:** 官网
 
 https://github.com/jaegertracing/jaeger-client-cpp
+
+
 C++ 12841
 C/C++ Header 8010
 CMake 959
@@ -481,9 +526,12 @@ Bourne Shell 121
 Dockerfile 6
 SUM 22641
 
+
 **java:** 官网
 
 https://github.com/jaegertracing/jaeger-client-java
+
+
 Java 12386
 Markdown 869
 Gradle 421
@@ -496,9 +544,12 @@ make 34
 Dockerfile 4
 SUM 14417
 
+
 **js:** 官网
 
 https://github.com/jaegertracing/jaeger-client-node
+
+
 JavaScript 9104
 JSON 8730
 Markdown 496
@@ -512,15 +563,20 @@ SUM 18697
 **rust:** jaeger rust(github)
 
 https://github.com/open-telemetry/opentelemetry-rust, https://github.com/sile/rustracing_jaeger
+
+
 Rust 1046
 YAML 114
 Markdown 44
 TOML 27
 SUM 1231
 
+
 **golang:** 官网
 
 https://github.com/jaegertracing/jaeger-client-go
+
+
 Go 27253
 Markdown 804
 YAML 263
@@ -531,16 +587,48 @@ TOML 24
 Dockerfile 6
 SUM 28585
 
+
 **python:** 官网
 
 https://github.com/jaegertracing/jaeger-client-python
 
+Python 8908
+Markdown 287
+YAML 200
+reStructuredText 164
+make 114
+Bourne Shell 28
+Dockerfile 17
+awk 16
+SUM 9734
+
 **php:** jaeger php(github)
 
 https://github.com/code-tool/jaeger-client-php, https://github.com/jonahgeorge/jaeger-client-php
+
+
 PHP 6717
 Markdown 203
 JSON 62
 Bourne Shell 55
 YAML 36
 SUM 7073
+
+cpp 3365+23954+22819+22641=72779 ave=18194.75
+java 172136+69596+14417=256149 ave=85383
+rust 3823+3492+1231=8546 ave=2848.667
+go 6288+21303+8904+28585=65080 ave=16270
+python 11892+23954+6354+9734=51934 ave=12983.5
+php 5553+23954+356+7073=36936 ave=9234
+js 22363+11443+18697=52503 ave=17501
+SUM=543927
+AVE=21757.08
+(这个数据中，pinpoint的cpp代理被计算了三次)
+
+
+
+
+1.其中pinpoint的cpp，php，python的agent在同一个仓库，是否要/3或者其他计算方法
+2.pinpoint未找到java，rust相关agent
+3.各个仓库差距量很大，比如zipkin的php仓库只有356行
+4.skywalking未找到js相关agent
