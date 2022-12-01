@@ -36,4 +36,4 @@ export AGENT_PATH=~/pinpoint-agent-2.4.2
 
 echo "Pinpoint is installed."
 
-popd
+popd > /dev/null
