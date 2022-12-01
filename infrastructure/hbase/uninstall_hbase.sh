@@ -4,6 +4,8 @@ pushd .
 
 cd ~
 
+####################################################
+
 # Uninstall HBase
 
 if [ -z "$JAVA_HOME" ]; then
@@ -16,6 +18,8 @@ fi
 rm -rf ~/hbase-2.5.1/
 
 rm -rf ~/tmp/
+
+####################################################
 
 echo "Pinpoint is uninstalled."
 
