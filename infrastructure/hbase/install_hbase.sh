@@ -4,6 +4,8 @@ pushd .
 
 cd ~
 
+####################################################
+
 # Set up HBase cluster
 
 if [ -z "$JAVA_HOME" ]; then
@@ -18,6 +20,8 @@ tar -xzf hbase-2.5.1-bin.tar.gz
 rm hbase-2.5.1-bin.tar.gz
 
 . hbase-2.5.1/bin/start-hbase.sh
+
+####################################################
 
 echo "HBase is installed."
 

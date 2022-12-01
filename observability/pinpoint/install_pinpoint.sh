@@ -4,6 +4,8 @@ pushd .
 
 cd ~
 
+####################################################
+
 # Create HBase schemas
 
 wget https://raw.githubusercontent.com/pinpoint-apm/pinpoint/master/hbase/scripts/hbase-create.hbase
@@ -33,6 +35,8 @@ tar xzf pinpoint-agent-2.4.2.tar.gz
 rm pinpoint-agent-2.4.2.tar.gz
 
 export AGENT_PATH=~/pinpoint-agent-2.4.2
+
+####################################################
 
 echo "Pinpoint is installed."
 

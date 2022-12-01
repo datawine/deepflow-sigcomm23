@@ -4,6 +4,8 @@ pushd .
 
 cd ~
 
+####################################################
+
 # Remove Pinpoint Agent
 
 rm -rf ~/pinpoint-agent-2.4.2
@@ -28,6 +30,8 @@ wget https://raw.githubusercontent.com/pinpoint-apm/pinpoint/master/hbase/script
 $HBASE_HOME/bin/hbase shell hbase-drop.hbase
 
 rm hbase-drop.hbase
+
+####################################################
 
 echo "Pinpoint is uninstalled."
 
