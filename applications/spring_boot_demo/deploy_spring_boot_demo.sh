@@ -8,7 +8,8 @@ cd ~
 
 # Deploy Sptring Boot Demo
 
-kubectl apply -f https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/DeepFlow-EBPF-Sping-Demo/deepflow-ebpf-spring-demo.yaml
+#https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/DeepFlow-EBPF-Sping-Demo/deepflow-ebpf-spring-demo.yaml
+kubectl apply -f deepflow-ebpf-spring-demo.yaml
 
 ####################################################
 

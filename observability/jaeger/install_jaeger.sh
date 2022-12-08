@@ -1,3 +1,11 @@
+#!/bin/sh
+
+pushd .
+
+cd ~
+
+####################################################
+
 # install jaeger using helm
 # ref: https://github.com/jaegertracing/helm-charts/tree/main/charts/jaeger
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
@@ -12,3 +20,9 @@ helm install jaeger jaegertracing/jaeger -n jaeger
 # visit the jaeger UI 
 export POD_NAME=$(kubectl get pods --namespace jaeger -l "app.kubernetes.io/instance=jaeger,app.kubernetes.io/component=query" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward --namespace jaeger $POD_NAME 8080:16686
+
+####################################################
+
+echo "Jaeger is installed."
+
+popd > /dev/null
