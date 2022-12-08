@@ -13,17 +13,17 @@ fi
 echo "current v2ray status is $(sudo systemctl is-active v2ray)"
 
 # bash status
-if grep "#export http_proxy=127.0.0.1:8000" -q /home/$1/.bashrc; then
+if grep "#export http_proxy=http://127.0.0.1:8000" -q /home/$1/.bashrc; then
     echo "http_proxy is off"
-elif grep "export http_proxy=127.0.0.1:8000" -q /home/$1/.bashrc; then
+elif grep "export http_proxy=http://127.0.0.1:8000" -q /home/$1/.bashrc; then
     echo "http_proxy is on"
 else
     echo "http_proxy is null"
 fi
 
-if grep "#export https_proxy=127.0.0.1:8000" -q /home/$1/.bashrc; then
+if grep "#export https_proxy=http://127.0.0.1:8000" -q /home/$1/.bashrc; then
     echo "https_proxy is off"
-elif grep "export https_proxy=127.0.0.1:8000" -q /home/$1/.bashrc; then
+elif grep "export https_proxy=http://127.0.0.1:8000" -q /home/$1/.bashrc; then
     echo "https_proxy is on"
 else
     echo "https_proxy is null"
@@ -44,3 +44,4 @@ if [ -f $path ]; then
 else
     echo "containerd proxy is off"
 fi
+
