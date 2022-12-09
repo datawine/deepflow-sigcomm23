@@ -3,3 +3,5 @@
 ## 组件版本要求
 
 * DeepFlow==6.1.7
+
+注意：切换namespace后，一定要记得切换回来，否则新安装的东西都会被放在另一个namespace而不是default！
