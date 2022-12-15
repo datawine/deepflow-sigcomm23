@@ -4,4 +4,10 @@
 
 * DeepFlow==6.1.7
 
-注意：切换namespace后，一定要记得切换回来，否则新安装的东西都会被放在另一个namespace而不是default！
+## 注意事项
+
+切换namespace后，一定要记得切换回来，否则新安装的东西都会被放在另一个namespace而不是default。
+
+## 参考资料
+
+压力测试工具：<https://github.com/denji/awesome-http-benchmark>

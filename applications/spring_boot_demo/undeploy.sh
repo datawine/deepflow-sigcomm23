@@ -1,14 +1,13 @@
-#!/bin/sh
+#!/bin/false
 
-pushd .
+SCRIPT_DIR=$(pwd)
 
-cd ~
+pushd ~ > /dev/null
 
 ####################################################
 
 # Uneploy Sptring Boot Demo
-
-kubectl delete -f https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/DeepFlow-EBPF-Sping-Demo/deepflow-ebpf-spring-demo.yaml
+kubectl delete -f $SCRIPT_DIR/main.yaml
 
 ####################################################
 
