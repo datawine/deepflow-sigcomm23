@@ -14,9 +14,7 @@ fi
 
 # Activate istioctl
 
-pushd .
-
-cd istio-*
+pushd istio-* > /dev/null
 
 export PATH=$PWD/bin:$PATH
 

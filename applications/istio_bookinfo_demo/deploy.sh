@@ -1,29 +1,23 @@
-#!/bin/sh
+#!/bin/false
 
-pushd .
+SCRIPT_DIR=$(pwd)
 
-cd ~
+pushd ~ > /dev/null
 
 ####################################################
 
 # Download Istio
-
 curl -L https://istio.io/downloadIstio | sh -
 
-pushd .
-
-cd istio-*
-
+# Set PATH
+pushd istio-* > /dev/null
 export PATH=$PWD/bin:$PATH
-
 popd > /dev/null
 
 # Install Istio
-
 istioctl install --set profile=demo -y
 
 # Disable Istio mTLS
-
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
@@ -36,8 +30,7 @@ spec:
 EOF
 
 # Deploy Bookinfo Demo
-
-kubectl apply -f https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/Istio-Bookinfo/bookinfo.yaml
+kubectl apply -f $SCRIPT_DIR/main.yaml
 
 ####################################################
 
