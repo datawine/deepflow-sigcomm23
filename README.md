@@ -3,6 +3,11 @@
 ## 组件版本要求
 
 * DeepFlow==6.1.7
+* Kubernetes
+  * kubeadm==v1.24.0
+  * kubelet==v1.24.0
+  * kubectl==v1.24.0
+* containerd==v1.6.2 (worker node)
 
 ## 注意事项
 
