@@ -1,12 +1,19 @@
-#!/bin/sh
+#!/bin/false
+
+SCRIPT_DIR=$(pwd)
 
 pushd ~ > /dev/null
 
 ####################################################
 
-# Deploy Sptring Boot Demo
+# Copy config file from the directory where the script is located to current directory
+cp $SCRIPT_DIR/main.yaml .
 
-kubectl apply -f https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/DeepFlow-EBPF-Sping-Demo/deepflow-ebpf-spring-demo.yaml
+# Deploy Sptring Boot Demo
+kubectl apply -f main.yaml
+
+# Remove config file
+rm main.yaml
 
 ####################################################
 
