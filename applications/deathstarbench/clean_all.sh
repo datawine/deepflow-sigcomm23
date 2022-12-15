@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/false
 
-pushd .
+SCRIPT_DIR=$(pwd)
 
-cd ~
+pushd ~ > /dev/null
 
 ####################################################
 
 # Undeploy all applications
 
-. ~/deepflow-sigcomm23/applications/deathstarbench/undeploy_hotel_reservation.sh
+source $SCRIPT_DIR/hotel_reservation/undeploy.sh
 
 # Clean files
 
