@@ -1,8 +1,8 @@
 #!/bin/sh
 
-pushd .
+SCRIPT_DIR=$(pwd)
 
-cd ~
+pushd ~ > /dev/null
 
 ####################################################
 
@@ -13,11 +13,9 @@ if [ ! -d istio-* ]; then
 fi
 
 # Undeploy Bookinfo Demo
-
-kubectl delete -f https://raw.githubusercontent.com/deepflowys/deepflow-demo/main/Istio-Bookinfo/bookinfo.yaml
+kubectl delete -f $SCRIPT_DIR/main.yaml
 
 # Uninstall Istio
-
 kubectl delete -f - <<EOF
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
@@ -32,12 +30,13 @@ EOF
 istioctl uninstall --set profile=demo --purge -y
 
 # Remove Istio files
-
 rm -rf istio-*
 
 # Remove namespace istio-system
-
 kubectl delete namespace istio-system
+
+# Remove configmap istio-ca-root-cert
+kubectl delete configmap istio-ca-root-cert
 
 ####################################################
 
