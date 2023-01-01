@@ -1,3 +1,6 @@
 [submodule "deepflow"]
 	path = deepflow
 	url = https://github.com/deepflowys/deepflow
+[submodule "deepflow-app"]
+	path = deepflow-app
+	url = git@github.com:deepflowys/deepflow-app.git
