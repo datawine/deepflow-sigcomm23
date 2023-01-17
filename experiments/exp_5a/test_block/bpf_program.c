@@ -8,11 +8,16 @@ static int (*bpf_trace_printk)(const char *fmt, int fmt_size,
 
 SEC("tracepoint/syscalls/sys_enter_write")
 int bpf_prog(void *ctx) {
-    int i=0;
-    while(i<10000){
-        i++;
-    }
     char msg[] = "Hello, BPF World!";
+    int temp=1;
+    for(int i=0; i<10000; i++){
+        temp *= 2;
+        if(temp > 666666) temp = temp - 123456;
+        if(temp > 10000){
+            temp = 0;
+            msg[0] = msg[0]=='H'?'h':'H';
+        }
+    }
     bpf_trace_printk(msg, sizeof(msg));
     return 0;
 }
