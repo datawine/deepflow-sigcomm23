@@ -6,7 +6,7 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 # Update the apt package index and install packages to allow apt to use a repository over HTTPS
 sudo apt-get update
 
-sudo apt-get install \
+sudo apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
@@ -24,7 +24,7 @@ echo \
 # Install Docker Engine
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # Post-installation
 sudo groupadd docker
