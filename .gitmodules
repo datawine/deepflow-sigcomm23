@@ -4,3 +4,6 @@
 [submodule "deepflow-app"]
 	path = deepflow-app
 	url = git@github.com:deepflowys/deepflow-app.git
+[submodule "experiments/exp_7/smartencoding-benchmark"]
+	path = experiments/exp_7/smartencoding-benchmark
+	url = git@github.com:deepflowys/smartencoding-benchmark.git
