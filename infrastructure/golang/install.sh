@@ -18,7 +18,11 @@ echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
 # Verify that Go installation
 go version
 
-# clear env
+# Set Env
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.io,direct
+
+# Clear download package
 rm go1.19.5.linux-amd64.tar.gz
 
 ####################################################
