@@ -9,6 +9,9 @@ pushd ~ > /dev/null
 # Enable sidecar injection
 kubectl label namespace default istio-injection=enabled
 
+# Reconfigure Istio, set sampling to 100.0
+istioctl install -f ./tracing.yaml
+
 # Disable Istio mTLS
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1
@@ -28,8 +31,15 @@ kubectl apply -f bookinfo.yaml
 kubectl get pods
 kubectl get svc
 
-kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
-curl -s "http://${GATEWAY_URL}/productpage" | grep -o "<title>.*</title>"
+# Print productpage addr
+IP_ADDR=$(kubectl get service/productpage -o jsonpath='{.spec.clusterIP}')
+echo $IP_ADDR
+
+# Deploy zipkin
+kubectl -n istio-system apply -f zipkin.yaml
+
+# Port forward
+kubectl port-forward -n istio-system svc/zipkin 9411:9411 --address="0.0.0.0"
 
 ####################################################
 
