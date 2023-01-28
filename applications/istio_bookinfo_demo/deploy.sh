@@ -6,17 +6,6 @@ pushd ~ > /dev/null
 
 ####################################################
 
-# Download Istio
-curl -L https://istio.io/downloadIstio | sh -
-
-# Set PATH
-pushd istio-* > /dev/null
-export PATH=$PWD/bin:$PATH
-popd > /dev/null
-
-# Install Istio
-istioctl install --set profile=demo -y
-
 # Disable Istio mTLS
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1

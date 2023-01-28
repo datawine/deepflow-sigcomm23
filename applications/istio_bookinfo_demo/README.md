@@ -1,5 +1,9 @@
 # Istio Bookinfo Demo
 
+## Prerequisites
+
+- istio
+
 运行`deploy.sh`以部署。
 
 运行`undeploy.sh`以拆卸。
