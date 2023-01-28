@@ -19,6 +19,6 @@ istioctl install --set profile=default -y
 
 ####################################################
 
-echo "Istio Bookinfo Demo is deployed."
+echo "Istio is installed."
 
 popd > /dev/null
