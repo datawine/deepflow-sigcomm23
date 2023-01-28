@@ -6,20 +6,6 @@ pushd ~ > /dev/null
 
 ####################################################
 
-# Disable Istio mTLS
-kubectl delete -f - <<EOF
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-  name: "default"
-  namespace: "istio-system"
-spec:
-  mtls:
-    mode: DISABLE
-EOF
-
-istioctl uninstall --set profile=demo --purge -y
-
 # Remove Istio
 istioctl uninstall --purge
 
@@ -28,6 +14,9 @@ kubectl delete namespace istio-system
 
 # Remove configmap istio-ca-root-cert
 kubectl delete configmap istio-ca-root-cert
+
+# rm files
+rm -rf istio-*
 
 ####################################################
 
