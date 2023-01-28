@@ -7,3 +7,6 @@
 [submodule "experiments/exp_7/smartencoding-benchmark"]
 	path = experiments/exp_7/smartencoding-benchmark
 	url = git@github.com:deepflowys/smartencoding-benchmark.git
+[submodule "deepflow-demo"]
+	path = deepflow-demo
+	url = git@github.com:deepflowys/deepflow-demo.git
