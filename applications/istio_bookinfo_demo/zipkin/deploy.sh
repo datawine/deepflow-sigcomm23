@@ -10,7 +10,7 @@ pushd ~ > /dev/null
 kubectl label namespace default istio-injection=enabled
 
 # Reconfigure Istio, set sampling to 100.0
-istioctl install -f ./tracing.yaml
+istioctl install -f ./tracing.yaml -y
 
 # Disable Istio mTLS
 kubectl apply -f - <<EOF
