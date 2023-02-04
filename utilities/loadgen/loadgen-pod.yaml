@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: http-load-generator
+spec:
+  containers:
+    - name: http-load-generator
+      image: datawine/sage-knative-loadgen
+      volumeMounts:
+        - name: http-loadgen-data
+          mountPath: /data
+  volumes:
+    - name: http-loadgen-data
+      persistentVolumeClaim:
+        claimName: nfs-http-loadgen-data-pvc

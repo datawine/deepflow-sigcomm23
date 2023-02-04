@@ -4,7 +4,7 @@
 
 **network(网卡):** skywalking network(github)
 
-https://github.com/apache/skywalking-rover, 
+https://github.com/apache/skywalking-rover,
 
 https://skywalking.apache.org/docs/main/next/en/setup/backend/backend-k8s-network-monitoring/
 
@@ -320,7 +320,7 @@ https://github.com/envoy-zipkin/example(不知道是否是想要的结果)
 
 #### b. basic services
 
-**CoreDNS:** zipkin coredns(google), 
+**CoreDNS:** zipkin coredns(google),
 
 https://coredns.io/plugins/trace/
 
@@ -336,7 +336,7 @@ https://github.com/opentracing-contrib/nginx-opentracing, https://github.com/rnb
 
 **redis:** zipkin for redis(google)
 
-https://www.npmjs.com/package/zipkin-instrumentation-redis (https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-redis), 
+https://www.npmjs.com/package/zipkin-instrumentation-redis (https://github.com/openzipkin/zipkin-js/tree/master/packages/zipkin-instrumentation-redis),
 
 **etcd:** zipkin etcd/etcd instrument(github), zipkin etcd(google)
 

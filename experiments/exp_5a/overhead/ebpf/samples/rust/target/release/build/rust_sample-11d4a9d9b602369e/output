@@ -1,0 +1,11 @@
+cargo:rustc-link-lib=static=trace
+cargo:rustc-link-search=native=/deepflow/agent/src/ebpf
+cargo:rustc-link-lib=static=GoReSym
+cargo:rustc-link-lib=static=bddisasm
+cargo:rustc-link-lib=static=dwarf
+cargo:rustc-link-lib=static=bcc_bpf
+cargo:rustc-link-search=native=/usr/lib
+cargo:rustc-link-search=native=/usr/lib64
+cargo:rustc-link-lib=dylib=pthread
+cargo:rustc-link-lib=dylib=elf
+cargo:rustc-link-lib=dylib=z
