@@ -36,8 +36,16 @@ elif [ "$1" = "sendto" ]; then
 elif [ "$1" = "recvfrom" ]; then
   src="./src/recvfrom5.c"
   dst="./bin/recvfrom5"
+fi
+
+if [ "$1" = "ssl_read" ]; then
+  gcc -o ./bin/ssl_read ./src/ssl_read.c -lssl -lcrypto
+  dst="./bin/ssl_read"
+elif [ "$1" = "ssl_write" ]; then
+  gcc -o ./bin/ssl_write ./src/ssl_write.c -lssl -lcrypto
+  dst="./bin/ssl_write"
 else
-  echo "Invalid argument: $1"
+  gcc -o $dst $src
 fi
 
 gcc -o $dst $src
