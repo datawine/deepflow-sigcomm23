@@ -4,13 +4,12 @@
 #include <stdio.h>
 
 int main() {
-    clock_t start, end;
-    start = clock();
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
     for (int i = 0; i < 100000; i++) {
         writev(0, NULL, 0);
     }
-    end = clock();
-    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Time taken: %f seconds\n", time_taken);
-    return 0;
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+    printf("Elapsed time: %f seconds\n", elapsed_time);
 }

@@ -46,14 +46,15 @@ elif [ "$1" = "recvfrom" ]; then
   src="./src/recvfrom5.c"
   dst="./bin/recvfrom5"
   gcc -o $dst $src
-fi
-
-if [ "$1" = "ssl_read" ]; then
+elif [ "$1" = "ssl_read" ]; then
   gcc -o ./bin/ssl_read ./src/ssl_read.c -lssl -lcrypto
   dst="./bin/ssl_read"
 elif [ "$1" = "ssl_write" ]; then
   gcc -o ./bin/ssl_write ./src/ssl_write.c -lssl -lcrypto
   dst="./bin/ssl_write"
+elif [ "$1" = "empty" ]; then
+  gcc -o ./bin/empty ./src/empty.c
+  dst="./bin/empty"
 fi
 
 echo "About to run $dst"
