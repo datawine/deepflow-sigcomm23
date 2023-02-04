@@ -24,6 +24,18 @@ elif [ "$1" = "recvmsg" ]; then
 elif [ "$1" = "recvmmsg" ]; then
   src="./src/recvmmsg5.c"
   dst="./bin/recvmmsg5"
+elif [ "$1" = "writev" ]; then
+  src="./src/writev5.c"
+  dst="./bin/writev5"
+elif [ "$1" = "readv" ]; then
+  src="./src/readv5.c"
+  dst="./bin/readv5"
+elif [ "$1" = "sendto" ]; then
+  src="./src/sendto5.c"
+  dst="./bin/sendto5"
+elif [ "$1" = "recvfrom" ]; then
+  src="./src/recvfrom5.c"
+  dst="./bin/recvfrom5"
 else
   echo "Invalid argument: $1"
 fi
