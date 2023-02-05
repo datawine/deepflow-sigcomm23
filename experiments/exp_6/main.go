@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"sort"
@@ -86,15 +87,30 @@ func main() {
 
 	// Test all traces.
 	logger.Info("Testing %d traces...", len(traceList))
+
+	// Split traces into many groups by 15m period.
+	lastPeriodStartTime := 0
+	if len(traceList) > 0 {
+		lastPeriodStartTime = traceList[0].startTime
+	}
+
 	var testResultList []float64
 	startTime := time.Now()
 	lastReportTime := startTime
 	for idx, trace := range traceList {
+		// Report progress every 10 seconds.
 		if idx == 0 || time.Since(lastReportTime) > 10*time.Second {
 			logger.Info("Testing trace %d/%d...", idx+1, len(traceList))
 			lastReportTime = time.Now()
 		}
-		testResult, err := testTrace(flagDict.panelURL, flagDict.apiKey, trace, 0, 999999999999)
+
+		// Update lastPeriodStartTime.
+		if trace.startTime > lastPeriodStartTime+900 {
+			lastPeriodStartTime = trace.startTime
+		}
+
+		// However, to ensure that the test result is accurate, if end time of the trace is after the end time of the period, we should extend the period to the end time of the trace.
+		testResult, err := testTrace(flagDict.panelURL, flagDict.apiKey, trace, lastPeriodStartTime, int(math.Max(float64(lastPeriodStartTime+900), float64(trace.endTime))))
 		if err != nil {
 			logger.Error(err.Error())
 			continue
