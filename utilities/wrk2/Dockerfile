@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 RUN apt update \
-    && apt install -y build-essential git make
+    && apt install -y build-essential git make libssl-dev zlib1g-dev
 
 WORKDIR /
 RUN git clone https://github.com/giltene/wrk2.git
