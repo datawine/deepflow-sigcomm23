@@ -308,6 +308,7 @@ func testTrace(panelURL string, apiKey string, trace TraceInfo, timeStart int, t
 	if err != nil {
 		return 0, errors.New("failed to test trace: " + err.Error())
 	}
+	defer req.Body.Close()
 	timeCost := time.Since(startTime)
 
 	return timeCost, nil

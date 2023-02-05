@@ -1,6 +1,7 @@
 package main
 
 import (
+	"exp6/clickhouse"
 	"exp6/l7"
 	"exp6/logger"
 	"flag"
@@ -50,7 +51,7 @@ func main() {
 	case "l7":
 		l7.Run(os.Args[2:])
 	case "clickhouse":
-		// clickhouse.Run(os.Args[2:])
+		clickhouse.Run(os.Args[2:])
 	default:
 		logger.Error("Unknown subcommand.")
 		logger.Info(helpMessage)

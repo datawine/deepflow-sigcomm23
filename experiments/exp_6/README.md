@@ -26,4 +26,13 @@ Options:
 You can run `exp6 clickhouse --help` to see the usage of the Clickhouse tool.
 
 ```shell
+Usage:
+  exp6 clickhouse [options] <panel URL>
+
+Options:
+  --h, -help                  Show help.
+  --api-key <API key>         API Key.
+  --count <count>             Count. (default: 100)
+  --output <output file>      Output file. Must be a JSON file. (default: result.json)
+  --random				      Random query time range. (default: false)
 ```
