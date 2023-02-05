@@ -1,0 +1,47 @@
+name: Build exp6
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        GOOS: [darwin, linux, openbsd, windows]
+        GOARCH: [amd64, arm64]
+        include:
+          - GOOS: darwin
+            output: lip
+          - GOOS: linux
+            output: lip
+          - GOOS: openbsd
+            output: lip
+          - GOOS: windows
+            output: lip.exe
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+         go-version-file: experiments/exp_6/go.mod
+         cache: true
+         cache-dependency-path: experiments/exp_6/go.sum
+
+      - name: Set up workspace
+        run: go work init experiments/exp_6
+
+      - name: Build Lip
+        run: |
+          export GOOS=${{ matrix.GOOS }}
+          export GOARCH=${{ matrix.GOARCH }}
+          go build -ldflags "-s -w" -o ./build/${{ matrix.output }} exp6
+
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: exp6-${{ matrix.GOOS }}-${{ matrix.GOARCH }}
+          path: build
