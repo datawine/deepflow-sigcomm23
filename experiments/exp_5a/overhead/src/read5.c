@@ -15,8 +15,8 @@ int main() {
     flags |= O_NONBLOCK;
     fcntl(fd, F_SETFL, flags);
 
-    clock_t start, end;
-    start = clock();
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     for (i = 0; i < 100000; i++) {
       int bytes_read = read(fd, buffer, 100);
@@ -33,9 +33,9 @@ int main() {
       }
     }
 
-    end = clock();
-    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Time taken: %f seconds\n", time_taken);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+    printf("Elapsed time: %f seconds\n", elapsed_time);
 
     return 0;
 }

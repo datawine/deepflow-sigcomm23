@@ -1,15 +1,13 @@
-#include <sys/syscall.h>
-#include <unistd.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <time.h>
 #include <stdio.h>
 
 int main() {
-    int i;
     struct timespec start, end;
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for (i = 0; i < 100000; i++) {
-        syscall(__NR_sendmmsg, 0, 0, 0, 0, 0, 0);
+    for (int i = 0; i < 100000; i++) {
+        recvfrom(0, NULL, 0, 0, NULL, NULL);
     }
     clock_gettime(CLOCK_MONOTONIC, &end);
     double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1000000000.0;

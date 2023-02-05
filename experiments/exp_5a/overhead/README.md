@@ -22,7 +22,7 @@ bash dd.sh
 bash run.sh <syscall>
 ```
 
-\<syscall\> = read | recvmmsg | recvmsg | sendmmsg | sendmsg | write
+\<syscall\> = write | read | sendto | recvfrom | sendmsg | sendmmsg | recvmsg | recvmmsg |writev | readv | empty
 
 
 
@@ -33,6 +33,21 @@ cd bin
 strace -c ./<filename>
 ```
 
-filename = read5 | recvmmsg5 | recvmsg5 | sendmmsg5 | sendmsg5 | write5
-
 先编译出可执行文件再用strace
+
+
+
+| 序号 | command  | time(no ebpf) | time(with ebpf) | time overhead(per command) |
+| ---- | -------- | ------------- | --------------- | -------------------------- |
+| 1    | write    | 116 ms        | 185 ms          | 690 ns                     |
+| 2    | read     | 127 ms        | 244 ms          | 1170 ns                    |
+| 3    | sendto   | 73 ms         | 176 ms          | 1030 ns                    |
+| 4    | recvfrom | 74 ms         | 222 ms          | 1480 ns                    |
+| 5    | sendmsg  | 73 ms         | 119 ms          | 460 ns                     |
+| 6    | sendmmsg | 73 ms         | 119 ms          | 460 ns                     |
+| 7    | recvmsg  | 72 ms         | 119 ms          | 470 ns                     |
+| 8    | recvmmsg | 72 ms         | 113 ms          | 410 ns                     |
+| 9    | writev   | 79 ms         | 171 ms          | 920 ns                     |
+| 10   | readv    | 83 ms         | 219 ms          | 1360 ns                    |
+| 11   | None     | 0.285 ms      | 0.285 ms        | 0                          |
+
