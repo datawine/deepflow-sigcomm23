@@ -12,13 +12,13 @@ jobs:
         GOARCH: [amd64, arm64]
         include:
           - GOOS: darwin
-            output: lip
+            output: exp6
           - GOOS: linux
-            output: lip
+            output: exp6
           - GOOS: openbsd
-            output: lip
+            output: exp6
           - GOOS: windows
-            output: lip.exe
+            output: exp6.exe
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -34,7 +34,7 @@ jobs:
       - name: Set up workspace
         run: go work init experiments/exp_6
 
-      - name: Build Lip
+      - name: Build
         run: |
           export GOOS=${{ matrix.GOOS }}
           export GOARCH=${{ matrix.GOARCH }}
