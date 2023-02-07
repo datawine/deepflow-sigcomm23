@@ -68,11 +68,11 @@ time dd if=/dev/zero of=/dev/null bs=1 count=100k
 
 | command                                                      | purpose           | time    | cost-per-command |
 | ------------------------------------------------------------ | ----------------- | ------- | ---------------- |
-| -                                                            | -                 | 0.514 s | -                |
-| sudo bpftrace -e 'k:vfs_read { 1 }'                          | kprobe            | 0.536 s | 214.8 ns         |
-| sudo bpftrace -e 'kr:vfs_read { 1 }'                         | kretprobe         | 0.566 s | 507.8 ns         |
-| sudo bpftrace -e 't:syscalls:sys_enter_read { 1 }'           | tracepoint(enter) | 0.542 s | 273.4 ns         |
-| sudo bpftrace -e 't:syscalls:sys_exit_read { 1 }'            | tracepoint(exit)  | 0.539 s | 244.1 ns         |
-| sudo bpftrace -e 'uprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uprobe            | 0.533 s | 185.5 ns         |
-| sudo bpftrace -e 'uretprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uretprobe         | 0.680 s | 1621.1 ns        |
+| -                                                            | -                 | 0.190 s | -                |
+| sudo bpftrace -e 'k:vfs_read { 1 }'                          | kprobe            | 0.208 s | 175.8 ns         |
+| sudo bpftrace -e 'kr:vfs_read { 1 }'                         | kretprobe         | 0.240 s | 488.3 ns         |
+| sudo bpftrace -e 't:syscalls:sys_enter_read { 1 }'           | tracepoint(enter) | 0.215 s | 244.1 ns         |
+| sudo bpftrace -e 't:syscalls:sys_exit_read { 1 }'            | tracepoint(exit)  | 0.215 s | 244.1 ns         |
+| sudo bpftrace -e 'uprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uprobe            | 0.515 s | 3173.8 ns        |
+| sudo bpftrace -e 'uretprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uretprobe         | 0.666 s | 4648.4 ns        |
 
