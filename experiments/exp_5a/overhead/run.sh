@@ -47,11 +47,14 @@ elif [ "$1" = "recvfrom" ]; then
   dst="./bin/recvfrom5"
   gcc -o $dst $src
 elif [ "$1" = "ssl_read" ]; then
-  gcc -o ./bin/ssl_read ./src/ssl_read.c -lssl -lcrypto
-  dst="./bin/ssl_read"
+  gcc -o ./bin/ssl_read ./src/ssl_read.c -lssl -lcrypto && ./bin/ssl_read
+  exit
 elif [ "$1" = "ssl_write" ]; then
-  gcc -o ./bin/ssl_write ./src/ssl_write.c -lssl -lcrypto
-  dst="./bin/ssl_write"
+  gcc -o ./bin/ssl_write ./src/ssl_write.c -lssl -lcrypto && ./bin/ssl_write
+  exit
+elif [ "$1" = "ssl" ]; then
+  gcc -o ./bin/ssl ./src/ssl.c -lssl -lcrypto && ./bin/ssl
+  exit
 elif [ "$1" = "empty" ]; then
   gcc -o ./bin/empty ./src/empty.c
   dst="./bin/empty"
@@ -66,19 +69,10 @@ do
   start=$(date +%s%N)
   $dst
   end=$(date +%s%N)
-
-  # Calculate the elapsed time in nanoseconds
   elapsed_time=$((end-start))
-
-  # Add the elapsed time to the sum
   sum=$((sum + elapsed_time))
 done
 
-# Divide the sum by the number of iterations to get the average
 average=$((sum / 20))
-
-# Convert the average from nanoseconds to milliseconds
 average_ms=$((average / 1000000))
-
-# Output the average system time to the command line
 echo "Average time: $average_ms milliseconds"

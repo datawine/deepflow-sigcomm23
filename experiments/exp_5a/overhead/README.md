@@ -22,7 +22,7 @@ bash dd.sh
 bash run.sh <syscall>
 ```
 
-\<syscall\> = write | read | sendto | recvfrom | sendmsg | sendmmsg | recvmsg | recvmmsg |writev | readv | empty | ssl_write | ssl_read
+\<syscall\> = write | read | sendto | recvfrom | sendmsg | sendmmsg | recvmsg | recvmmsg |writev | readv | empty | ssl_write | ssl_read |ssl | empty
 
 
 
@@ -37,21 +37,22 @@ strace -c ./<filename>
 
 
 
-| 序号 | command   | time(no ebpf) | time(with ebpf) | time overhead(per command) |
-| ---- | --------- | ------------- | --------------- | -------------------------- |
-| 1    | write     | 116 ms        | 185 ms          | 690 ns                     |
-| 2    | read      | 127 ms        | 244 ms          | 1170 ns                    |
-| 3    | sendto    | 73 ms         | 176 ms          | 1030 ns                    |
-| 4    | recvfrom  | 74 ms         | 222 ms          | 1480 ns                    |
-| 5    | sendmsg   | 73 ms         | 119 ms          | 460 ns                     |
-| 6    | sendmmsg  | 73 ms         | 119 ms          | 460 ns                     |
-| 7    | recvmsg   | 72 ms         | 119 ms          | 470 ns                     |
-| 8    | recvmmsg  | 72 ms         | 113 ms          | 410 ns                     |
-| 9    | writev    | 79 ms         | 171 ms          | 920 ns                     |
-| 10   | readv     | 83 ms         | 219 ms          | 1360 ns                    |
-| 11   | ssl_write | 13 ms         | 13 ms           | 0(?)                       |
-| 12   | ssl_read  | 13 ms         | 13 ms           | 0(?)                       |
-| 13   | None      | 0.285 ms      | 0.285 ms        | 0                          |
+| 序号 | command   | time(no ebpf)  | time(with ebpf) | time overhead(per command) |
+| ---- | --------- | -------------- | --------------- | -------------------------- |
+| 1    | write     | 116 ms         | 185 ms          | 690 ns                     |
+| 2    | read      | 127 ms         | 244 ms          | 1170 ns                    |
+| 3    | sendto    | 73 ms          | 176 ms          | 1030 ns                    |
+| 4    | recvfrom  | 74 ms          | 222 ms          | 1480 ns                    |
+| 5    | sendmsg   | 73 ms          | 119 ms          | 460 ns                     |
+| 6    | sendmmsg  | 73 ms          | 119 ms          | 460 ns                     |
+| 7    | recvmsg   | 72 ms          | 119 ms          | 470 ns                     |
+| 8    | recvmmsg  | 72 ms          | 113 ms          | 410 ns                     |
+| 9    | writev    | 79 ms          | 171 ms          | 920 ns                     |
+| 10   | readv     | 83 ms          | 219 ms          | 1360 ns                    |
+| 11   | ssl_write | 0.22-0.23 ms   | 0.241-0.26 ms   | -                          |
+| 12   | ssl_read  | 0.061-0.065 ms | 0.062-0.065 ms  | -                          |
+| 13   | ssl       | 0.53-0.57 ms   | 0.53-0.58 ms    | -                          |
+| 14   | None      | 0.285 ms       | 0.285 ms        | 0                          |
 
 
 
