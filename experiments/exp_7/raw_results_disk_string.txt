@@ -1,0 +1,35 @@
+Query id: ed82f4c6-3829-4276-9677-812bf61e01f9
+
+┌─column─────────┬─any(type)─────────────────┬─original size─┬─compressed size─┬─sum(rows)─┐
+│ string_8_32_0  │ String                    │ 195.11 MiB    │ 2.46 MiB        │  10000000 │
+│ string_8_32_1  │ String                    │ 195.13 MiB    │ 186.99 MiB      │  10000000 │
+│ string_8_32_10 │ String                    │ 195.15 MiB    │ 186.09 MiB      │  10000000 │
+│ string_8_32_11 │ String                    │ 195.14 MiB    │ 186.08 MiB      │  10000000 │
+│ string_8_32_12 │ String                    │ 195.17 MiB    │ 186.13 MiB      │  10000000 │
+│ string_8_32_13 │ String                    │ 195.15 MiB    │ 186.10 MiB      │  10000000 │
+│ string_8_32_14 │ String                    │ 195.13 MiB    │ 186.07 MiB      │  10000000 │
+│ string_8_32_15 │ String                    │ 195.16 MiB    │ 186.10 MiB      │  10000000 │
+│ string_8_32_16 │ String                    │ 195.09 MiB    │ 186.03 MiB      │  10000000 │
+│ string_8_32_17 │ String                    │ 195.16 MiB    │ 186.10 MiB      │  10000000 │
+│ string_8_32_18 │ String                    │ 195.16 MiB    │ 186.10 MiB      │  10000000 │
+│ string_8_32_19 │ String                    │ 195.14 MiB    │ 186.11 MiB      │  10000000 │
+│ string_8_32_2  │ String                    │ 195.13 MiB    │ 186.05 MiB      │  10000000 │
+│ string_8_32_20 │ String                    │ 195.13 MiB    │ 186.06 MiB      │  10000000 │
+│ string_8_32_21 │ String                    │ 195.13 MiB    │ 186.06 MiB      │  10000000 │
+│ string_8_32_22 │ String                    │ 195.12 MiB    │ 186.07 MiB      │  10000000 │
+│ string_8_32_23 │ String                    │ 195.12 MiB    │ 186.09 MiB      │  10000000 │
+│ string_8_32_24 │ String                    │ 195.11 MiB    │ 186.06 MiB      │  10000000 │
+│ string_8_32_25 │ String                    │ 195.11 MiB    │ 186.09 MiB      │  10000000 │
+│ string_8_32_26 │ String                    │ 195.11 MiB    │ 186.09 MiB      │  10000000 │
+│ string_8_32_27 │ String                    │ 195.11 MiB    │ 186.07 MiB      │  10000000 │
+│ string_8_32_28 │ String                    │ 195.10 MiB    │ 186.03 MiB      │  10000000 │
+│ string_8_32_29 │ String                    │ 195.08 MiB    │ 186.02 MiB      │  10000000 │
+│ string_8_32_3  │ String                    │ 195.14 MiB    │ 186.08 MiB      │  10000000 │
+│ string_8_32_4  │ String                    │ 195.13 MiB    │ 186.07 MiB      │  10000000 │
+│ string_8_32_5  │ String                    │ 195.15 MiB    │ 186.11 MiB      │  10000000 │
+│ string_8_32_6  │ String                    │ 195.16 MiB    │ 186.08 MiB      │  10000000 │
+│ string_8_32_7  │ String                    │ 195.16 MiB    │ 186.10 MiB      │  10000000 │
+│ string_8_32_8  │ String                    │ 195.11 MiB    │ 186.06 MiB      │  10000000 │
+│ string_8_32_9  │ String                    │ 195.13 MiB    │ 186.09 MiB      │  10000000 │
+│ time           │ DateTime('Asia/Shanghai') │ 38.09 MiB     │ 11.23 MiB       │  10000000 │
+└────────────────┴───────────────────────────┴───────────────┴─────────────────┴───────────┘
