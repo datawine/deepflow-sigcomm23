@@ -1,0 +1,35 @@
+Query id: d2cf83b2-9f32-40c5-8481-a002ff89b9fa
+
+┌─column─────────────────┬─any(type)─────────────────┬─original size─┬─compressed size─┬─sum(rows)─┐
+│ lowcard_string_8_32_0  │ LowCardinality(String)    │ 19.86 MiB     │ 1.53 MiB        │  10000000 │
+│ lowcard_string_8_32_1  │ LowCardinality(String)    │ 92.00 MiB     │ 92.37 MiB       │  10000000 │
+│ lowcard_string_8_32_10 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_11 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_12 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_13 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_14 │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_15 │ LowCardinality(String)    │ 92.02 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_16 │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_17 │ LowCardinality(String)    │ 92.02 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_18 │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_19 │ LowCardinality(String)    │ 92.03 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_2  │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_20 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_21 │ LowCardinality(String)    │ 91.99 MiB     │ 92.37 MiB       │  10000000 │
+│ lowcard_string_8_32_22 │ LowCardinality(String)    │ 92.03 MiB     │ 92.41 MiB       │  10000000 │
+│ lowcard_string_8_32_23 │ LowCardinality(String)    │ 92.00 MiB     │ 92.38 MiB       │  10000000 │
+│ lowcard_string_8_32_24 │ LowCardinality(String)    │ 92.02 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_25 │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_26 │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_27 │ LowCardinality(String)    │ 92.00 MiB     │ 92.38 MiB       │  10000000 │
+│ lowcard_string_8_32_28 │ LowCardinality(String)    │ 92.00 MiB     │ 92.37 MiB       │  10000000 │
+│ lowcard_string_8_32_29 │ LowCardinality(String)    │ 92.03 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_3  │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_4  │ LowCardinality(String)    │ 92.01 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_5  │ LowCardinality(String)    │ 92.02 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_6  │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_7  │ LowCardinality(String)    │ 92.03 MiB     │ 92.40 MiB       │  10000000 │
+│ lowcard_string_8_32_8  │ LowCardinality(String)    │ 92.02 MiB     │ 92.39 MiB       │  10000000 │
+│ lowcard_string_8_32_9  │ LowCardinality(String)    │ 92.02 MiB     │ 92.40 MiB       │  10000000 │
+│ time                   │ DateTime('Asia/Shanghai') │ 38.14 MiB     │ 10.24 MiB       │  10000000 │
+└────────────────────────┴───────────────────────────┴───────────────┴─────────────────┴───────────┘
