@@ -61,18 +61,4 @@ elif [ "$1" = "empty" ]; then
 fi
 
 echo "About to run $dst"
-
-sum=0
-for i in {1..20}
-do
-  # Measure the time in seconds needed to execute the command
-  start=$(date +%s%N)
-  $dst
-  end=$(date +%s%N)
-  elapsed_time=$((end-start))
-  sum=$((sum + elapsed_time))
-done
-
-average=$((sum / 20))
-average_ms=$((average / 1000000))
-echo "Average time: $average_ms milliseconds"
+$dst
