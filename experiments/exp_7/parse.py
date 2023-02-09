@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     print(round(sum(cpu_usage) / len(cpu_usage), 2), len(cpu_usage))
     print(round(sum(mem_usage) / len(mem_usage), 2), len(mem_usage))
-    print(round(sum(disk_usage) / len(disk_usage), 2), len(disk_usage))
+    print(round(sum(disk_usage), 2))
