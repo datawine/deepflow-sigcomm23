@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"math"
 	"math/rand"
 	"net/http"
 	"os"
@@ -16,12 +17,13 @@ import (
 )
 
 type FlagDict struct {
-	helpFlag bool
-	apiKey   string
-	count    int
-	output   string
-	panelURL string
-	random   bool
+	helpFlag  bool
+	apiKey    string
+	count     int
+	output    string
+	panelURL  string
+	random    bool
+	namespace string
 }
 
 const helpMessage = `
@@ -33,7 +35,8 @@ Options:
   --api-key <API key>         API Key.
   --count <count>             Count. (default: 100)
   --output <output file>      Output file. Must be a JSON file. (default: result.json)
-  --random				      Random query time range. (default: false)`
+  --random				      Random query time range. (default: false)
+  --namespace <namespace>     Namespace. (default: default)`
 
 func Run(args []string) {
 	var err error
@@ -50,6 +53,7 @@ func Run(args []string) {
 	flagSet.IntVar(&flagDict.count, "count", 100, "")
 	flagSet.StringVar(&flagDict.output, "output", "result.json", "")
 	flagSet.BoolVar(&flagDict.random, "random", false, "")
+	flagSet.StringVar(&flagDict.namespace, "namespace", "default", "")
 	flagSet.Parse(args)
 
 	// Help flag has the highest priority.
@@ -76,24 +80,29 @@ func Run(args []string) {
 
 	// Fetch trace list from the Grafana panel.
 	logger.Info("Fetching first and last spans from the Grafana panel...")
-	firstSpanStartTime, err := fetchFirstOrLastSpanStartTime(flagDict.panelURL, flagDict.apiKey, true)
+	firstSpanStartTime, err := fetchFirstOrLastSpanStartTime(flagDict.panelURL, flagDict.apiKey, true, flagDict.namespace)
 	if err != nil {
 		logger.Error(err.Error())
 		os.Exit(1)
 	}
-	lastSpanStartTime, err := fetchFirstOrLastSpanStartTime(flagDict.panelURL, flagDict.apiKey, false)
+	lastSpanStartTime, err := fetchFirstOrLastSpanStartTime(flagDict.panelURL, flagDict.apiKey, false, flagDict.namespace)
 	if err != nil {
 		logger.Error(err.Error())
 		os.Exit(1)
 	}
 
 	// Test all span collections.
+	logger.Info("Testing all span collections...")
 	testResultList := make([]float64, 0)
 
 	lastReportTime := time.Now()
 
 	queryStartTime := firstSpanStartTime
 	queryEndTime := queryStartTime + 900 // 15 minutes
+
+	failedCount := 0
+
+	flagDict.count = int(math.Min(float64(flagDict.count), float64((lastSpanStartTime-firstSpanStartTime)/900+1)))
 
 	for i := 0; i < flagDict.count; i++ {
 		// Report progress.
@@ -108,19 +117,19 @@ func Run(args []string) {
 		}
 
 		// Query span list.
-		queryResult, err := fetchSpanInRange(flagDict.panelURL, flagDict.apiKey, queryStartTime, queryEndTime)
+		queryResult, err := fetchSpanInRange(flagDict.panelURL, flagDict.apiKey, queryStartTime, queryEndTime, flagDict.namespace)
 		if err != nil {
 			logger.Error(err.Error())
-			os.Exit(1)
+			failedCount++
+		} else {
+			// Calculate test result.
+			testResultList = append(testResultList, float64(queryResult.Seconds()))
 		}
 
 		if !flagDict.random {
 			queryStartTime += 900 // 15 minutes
 			queryEndTime += 900
 		}
-
-		// Calculate test result.
-		testResultList = append(testResultList, float64(queryResult.Seconds()))
 	}
 
 	// Print test result in JSON format.
@@ -128,6 +137,9 @@ func Run(args []string) {
 		"average":     0,
 		"percentile":  []int{},
 		"raw_results": testResultList,
+		"failed":      failedCount,
+		"total":       flagDict.count,
+		"failed_rate": float64(failedCount) / float64(flagDict.count),
 	}
 
 	// Calculate average.
@@ -199,13 +211,13 @@ func convertTimeToTimestamp(timeString string) (int, error) {
 }
 
 // fetchFirstOrLastSpanStartTime fetches the start time of the first or last span from the Grafana panel.
-func fetchFirstOrLastSpanStartTime(panelURL string, apiKey string, isFirst bool) (int, error) {
+func fetchFirstOrLastSpanStartTime(panelURL string, apiKey string, isFirst bool, namespace string) (int, error) {
 	// Create request
 	order := "ASC"
 	if !isFirst {
 		order = "DESC"
 	}
-	postContent := fmt.Sprintf("db=flow_log&sql=SELECT toString(start_time) AS `start_time`, toString(end_time) as `end_time` FROM l7_flow_log WHERE tap_port_type IN (7,8) AND (pod_ns_0 = 'deepflow-ebpf-istio-demo' OR pod_ns_1 = 'deepflow-ebpf-istio-demo') ORDER BY `start_time` %s LIMIT 1", order)
+	postContent := fmt.Sprintf("db=flow_log&sql=SELECT toString(start_time) AS `start_time`, toString(end_time) as `end_time` FROM l7_flow_log WHERE tap_port_type IN (7,8) AND (pod_ns_0 = '%s' OR pod_ns_1 = '%s') ORDER BY `start_time` %s LIMIT 1", namespace, namespace, order)
 
 	// Create request
 	req, err := http.NewRequest("POST", strings.TrimSuffix(panelURL, "/")+"/api/datasources/proxy/1/noauth/v1/query/", strings.NewReader(postContent))
@@ -239,6 +251,12 @@ func fetchFirstOrLastSpanStartTime(panelURL string, apiKey string, isFirst bool)
 	if respJSON["OPT_STATUS"] != "SUCCESS" {
 		return 0, errors.New("failed to fetch span list from the Grafana panel: OPT_STATUS=" + respJSON["OPT_STATUS"].(string))
 	}
+	if respJSON["result"] == nil {
+		return 0, errors.New("failed to fetch span list from the Grafana panel: no result found")
+	}
+	if respJSON["result"].(map[string]interface{})["values"] == nil {
+		return 0, errors.New("failed to fetch span list from the Grafana panel: no values found")
+	}
 	valueListJSON := respJSON["result"].(map[string]interface{})["values"].([]interface{})
 	if len(valueListJSON) == 0 {
 		return 0, errors.New("failed to fetch span list from the Grafana panel: no span found")
@@ -254,10 +272,10 @@ func fetchFirstOrLastSpanStartTime(panelURL string, apiKey string, isFirst bool)
 // fetchSpanInRange tests the trace and gets the time cost.
 // timeStart and timeEnd are in seconds.
 // return value: time cost in microseconds.
-func fetchSpanInRange(panelURL string, apiKey string, timeStart int, timeEnd int) (time.Duration, error) {
+func fetchSpanInRange(panelURL string, apiKey string, timeStart int, timeEnd int, namespace string) (time.Duration, error) {
 	var err error
 
-	postContent := fmt.Sprintf("db=flow_log&sql=select `response_duration` AS `Response Delay`, resource_gl0_0, resource_gl0_1, ip_0, ip_1, toString(start_time) AS `start_time`, Enum(tap_port_type), Enum(l7_protocol), request_type, request_domain, request_resource, Enum(response_status), response_code, response_exception, trace_id, span_id, server_port, endpoint, toString(_id), resource_gl0_id_0, resource_gl0_id_1 from l7_flow_log where tap_port_type IN (7,8) AND (pod_cluster_id_0!=0 OR pod_cluster_id_1!=0) AND (pod_ns_0='deepflow-ebpf-istio-demo' OR pod_ns_1='deepflow-ebpf-istio-demo') AND (pod_group_id_0!=0 OR pod_group_id_1!=0) AND (chost_id_0!=0 OR chost_id_1!=0) AND trace_id LIKE('*') AND span_id LIKE('*') AND request_resource LIKE('*') AND time>=%d AND time<=%d limit 100", timeStart, timeEnd)
+	postContent := fmt.Sprintf("db=flow_log&sql=select `response_duration` AS `Response Delay`, resource_gl0_0, resource_gl0_1, ip_0, ip_1, toString(start_time) AS `start_time`, Enum(tap_port_type), Enum(l7_protocol), request_type, request_domain, request_resource, Enum(response_status), response_code, response_exception, trace_id, span_id, server_port, endpoint, toString(_id), resource_gl0_id_0, resource_gl0_id_1 from l7_flow_log where tap_port_type IN (7,8) AND (pod_cluster_id_0!=0 OR pod_cluster_id_1!=0) AND (pod_ns_0='%s' OR pod_ns_1='%s') AND (pod_group_id_0!=0 OR pod_group_id_1!=0) AND (chost_id_0!=0 OR chost_id_1!=0) AND trace_id LIKE('*') AND span_id LIKE('*') AND request_resource LIKE('*') AND time>=%d AND time<=%d limit 100", namespace, namespace, timeStart, timeEnd)
 
 	// Create request
 	req, err := http.NewRequest("POST", strings.TrimSuffix(panelURL, "/")+"/api/datasources/proxy/1/noauth/v1/query/?debug=true", strings.NewReader(postContent))
