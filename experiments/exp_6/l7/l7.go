@@ -108,6 +108,8 @@ func Run(args []string) {
 	logger.Info("Testing %d traces...", flagDict.count)
 	traceList = traceList[:flagDict.count]
 
+	failedCount := 0
+
 	var testResultList []float64
 	startTime := time.Now()
 	lastReportTime := startTime
@@ -126,6 +128,7 @@ func Run(args []string) {
 		testResult, err := testTrace(flagDict.panelURL, flagDict.apiKey, trace, trace.startTime-startOffset, trace.endTime+endOffset)
 		if err != nil {
 			logger.Error(err.Error())
+			failedCount++
 			continue
 		}
 		testResultList = append(testResultList, float64(testResult.Seconds()))
@@ -136,6 +139,9 @@ func Run(args []string) {
 		"average":     0,
 		"percentile":  []int{},
 		"raw_results": testResultList,
+		"failed":      failedCount,
+		"total":       len(traceList),
+		"failed_rate": float64(failedCount) / float64(len(traceList)),
 	}
 
 	// Calculate average.

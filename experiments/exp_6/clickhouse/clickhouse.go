@@ -95,6 +95,8 @@ func Run(args []string) {
 	queryStartTime := firstSpanStartTime
 	queryEndTime := queryStartTime + 900 // 15 minutes
 
+	failedCount := 0
+
 	for i := 0; i < flagDict.count; i++ {
 		// Report progress.
 		if i == 0 || time.Since(lastReportTime) > time.Second*10 {
@@ -111,16 +113,16 @@ func Run(args []string) {
 		queryResult, err := fetchSpanInRange(flagDict.panelURL, flagDict.apiKey, queryStartTime, queryEndTime)
 		if err != nil {
 			logger.Error(err.Error())
-			os.Exit(1)
+			failedCount++
+		} else {
+			// Calculate test result.
+			testResultList = append(testResultList, float64(queryResult.Seconds()))
 		}
 
 		if !flagDict.random {
 			queryStartTime += 900 // 15 minutes
 			queryEndTime += 900
 		}
-
-		// Calculate test result.
-		testResultList = append(testResultList, float64(queryResult.Seconds()))
 	}
 
 	// Print test result in JSON format.
@@ -128,6 +130,9 @@ func Run(args []string) {
 		"average":     0,
 		"percentile":  []int{},
 		"raw_results": testResultList,
+		"failed":      failedCount,
+		"total":       flagDict.count,
+		"failed_rate": float64(failedCount) / float64(flagDict.count),
 	}
 
 	// Calculate average.
