@@ -38,15 +38,15 @@ int main(int argc, char *argv[])
         connect(sock, (struct sockaddr*) &dest_addr, sizeof(dest_addr));
     
         ssl = SSL_new(ctx);
-        SSL_set_fd(ssl, sock);
-
-        SSL_write(ssl, request, strlen(request));
 
         struct timespec start, end;
         clock_gettime(CLOCK_MONOTONIC, &start);
-        bytes_read = SSL_read(ssl, response, sizeof(response) - 1);
+        SSL_set_fd(ssl, sock);
+        SSL_write(ssl, request, strlen(request));
         clock_gettime(CLOCK_MONOTONIC, &end);
         double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1000000.0;
+        
+        bytes_read = SSL_read(ssl, response, sizeof(response) - 1);
 
         average += elapsed_time;
         response[bytes_read] = '\0';

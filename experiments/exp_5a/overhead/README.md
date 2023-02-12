@@ -22,7 +22,7 @@ bash dd.sh
 bash run.sh <syscall>
 ```
 
-\<syscall\> = write | read | sendto | recvfrom | sendmsg | sendmmsg | recvmsg | recvmmsg |writev | readv | empty
+\<syscall\> = write | read | sendto | recvfrom | sendmsg | sendmmsg | recvmsg | recvmmsg |writev | readv | empty | ssl_write | ssl_read |ssl | empty
 
 
 
@@ -37,17 +37,59 @@ strace -c ./<filename>
 
 
 
-| 序号 | command  | time(no ebpf) | time(with ebpf) | time overhead(per command) |
-| ---- | -------- | ------------- | --------------- | -------------------------- |
-| 1    | write    | 116 ms        | 185 ms          | 690 ns                     |
-| 2    | read     | 127 ms        | 244 ms          | 1170 ns                    |
-| 3    | sendto   | 73 ms         | 176 ms          | 1030 ns                    |
-| 4    | recvfrom | 74 ms         | 222 ms          | 1480 ns                    |
-| 5    | sendmsg  | 73 ms         | 119 ms          | 460 ns                     |
-| 6    | sendmmsg | 73 ms         | 119 ms          | 460 ns                     |
-| 7    | recvmsg  | 72 ms         | 119 ms          | 470 ns                     |
-| 8    | recvmmsg | 72 ms         | 113 ms          | 410 ns                     |
-| 9    | writev   | 79 ms         | 171 ms          | 920 ns                     |
-| 10   | readv    | 83 ms         | 219 ms          | 1360 ns                    |
-| 11   | None     | 0.285 ms      | 0.285 ms        | 0                          |
+| 序号 | command  | time(no ebpf) | time(with ebpf) | overhead per command |
+| ---- | -------- | ------------- | --------------- | -------------------- |
+| 1    | write    | 0.082192 s    | 0.124943 s      | 427.51 ns            |
+| 2    | read     | 0.090606 s    | 0.162634 s      | 720.28 ns            |
+| 3    | sendto   | 0.057167 s    | 0.116222 s      | 590.55 ns            |
+| 4    | recvfrom | 0.057048 s    | 0.145914 s      | 888.66 ns            |
+| 5    | sendmsg  | 0.057016 s    | 0.084762 s      | 277.46 ns            |
+| 6    | sendmmsg | 0.056852 s    | 0.084845 s      | 279.93 ns            |
+| 7    | recvmsg  | 0.056655 s    | 0.085161 s      | 285.06 ns            |
+| 8    | recvmmsg | 0.054130 s    | 0.085895 s      | 317.65 ns            |
+| 9    | writev   | 0.057985 s    | 0.114833 s      | 568.48 ns            |
+| 10   | readv    | 0.059524 s    | 0.146692 s      | 871.68 ns            |
+| 11   | None     | 0.000473 s    | 0.000515 s      | -                    |
+
+
+
+**复现书上的实验数据**
+
+命令：
+
+```bash
+time dd if=/dev/zero of=/dev/null bs=1 count=100k
+```
+
+
+
+| command                                                      | purpose           | time    | cost-per-command |
+| ------------------------------------------------------------ | ----------------- | ------- | ---------------- |
+| -                                                            | -                 | 0.146 s | -                |
+| sudo bpftrace -e 'k:vfs_read { 1 }'                          | kprobe            | 0.160 s | 136.7 ns         |
+| sudo bpftrace -e 'kr:vfs_read { 1 }'                         | kretprobe         | 0.183 s | 361.3 ns         |
+| sudo bpftrace -e 't:syscalls:sys_enter_read { 1 }'           | tracepoint(enter) | 0.163 s | 166.0 ns         |
+| sudo bpftrace -e 't:syscalls:sys_exit_read { 1 }'            | tracepoint(exit)  | 0.161 s | 146.5 ns         |
+| sudo bpftrace -e 'uprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uprobe            | 0.404 s | 2519.5 ns        |
+| sudo bpftrace -e 'uretprobe:/lib/x86_64-linux-gnu/libc.so.6:read {1;}' | uretprobe         | 0.518 s | 3632.8 ns        |
+
+
+
+```bash
+sudo docker run --rm  -t  --privileged --workdir /deepflow/  -v $(pwd):"/deepflow/"  --entrypoint "bash" ghcr.io/deepflowys/rust-build:1.17 "-c" "\
+          source /opt/rh/devtoolset-8/enable && \
+          cp agent/docker/rust-proxy-config /usr/local/cargo/config && \
+          cd  agent/src/ebpf && \
+          make clean && \
+          make rust-sample && \
+          make test && \
+          make tools && make"
+```
+
+
+
+| 函数      | time(before) | time(after) | overhead  |
+| --------- | ------------ | ----------- | --------- |
+| ssl_read  | 41.23091 ms  | 102.8073 ms | 6157.6 ns |
+| ssl_write | 31.24117 ms  | 96.99336 ms | 6575.2 ns |
 
