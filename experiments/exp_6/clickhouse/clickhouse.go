@@ -244,6 +244,9 @@ func fetchFirstOrLastSpanStartTime(panelURL string, apiKey string, isFirst bool)
 	if respJSON["OPT_STATUS"] != "SUCCESS" {
 		return 0, errors.New("failed to fetch span list from the Grafana panel: OPT_STATUS=" + respJSON["OPT_STATUS"].(string))
 	}
+	if respJSON["result"] == nil {
+		return 0, errors.New("failed to fetch span list from the Grafana panel: no result found")
+	}
 	valueListJSON := respJSON["result"].(map[string]interface{})["values"].([]interface{})
 	if len(valueListJSON) == 0 {
 		return 0, errors.New("failed to fetch span list from the Grafana panel: no span found")

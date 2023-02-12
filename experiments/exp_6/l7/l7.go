@@ -255,6 +255,9 @@ func fetchTraceList(panelURL string, apiKey string) ([]TraceInfo, error) {
 		return nil, errors.New("failed to fetch trace list from the Grafana panel: OPT_STATUS=" + respJSON["OPT_STATUS"].(string))
 	}
 	var traceList []TraceInfo
+	if respJSON["result"].(map[string]interface{})["values"] == nil {
+		return traceList, nil
+	}
 	for _, value := range respJSON["result"].(map[string]interface{})["values"].([]interface{}) {
 		valueList := value.([]interface{})
 
