@@ -6,6 +6,7 @@ import (
 	"errors"
 	"exp6/logger"
 	"flag"
+	"fmt"
 	"io"
 	"math"
 	"math/rand"
@@ -24,6 +25,8 @@ type FlagDict struct {
 	panelURL  string
 	queryTime int
 	shuffle   bool
+	namespace string
+	workload  string
 }
 
 type TraceInfo struct {
@@ -42,7 +45,9 @@ Options:
   --count <count>             Count. (default: 100)
   --output <output file>      Output file. Must be a JSON file. (default: result.json)
   --query-time <query time>   Query time range length in seconds. (default: 900)
-  --shuffle				      Shuffle trace list before testing. (default: false)`
+  --shuffle				      Shuffle trace list before testing. (default: false)
+  --namespace <namespace>     Namespace.
+  --workload <workload>       Workload.`
 
 func Run(args []string) {
 	var err error
@@ -60,6 +65,8 @@ func Run(args []string) {
 	flagSet.StringVar(&flagDict.output, "output", "result.json", "")
 	flagSet.IntVar(&flagDict.queryTime, "query-time", 900, "")
 	flagSet.BoolVar(&flagDict.shuffle, "shuffle", false, "")
+	flagSet.StringVar(&flagDict.namespace, "namespace", "default", "")
+	flagSet.StringVar(&flagDict.workload, "workload", "", "")
 	flagSet.Parse(args)
 
 	// Help flag has the highest priority.
@@ -86,7 +93,7 @@ func Run(args []string) {
 
 	// Fetch trace list from the Grafana panel.
 	logger.Info("Fetching trace list from the Grafana panel...")
-	traceList, err := fetchTraceList(flagDict.panelURL, flagDict.apiKey)
+	traceList, err := fetchTraceList(flagDict.panelURL, flagDict.apiKey, flagDict.namespace, flagDict.workload)
 	if err != nil {
 		logger.Error(err.Error())
 		os.Exit(1)
@@ -204,6 +211,14 @@ func checkFlags(flagDict FlagDict) error {
 		return errors.New("host URL must start with http:// or https://")
 	}
 
+	if flagDict.namespace == "" {
+		return errors.New("a namespace must be provided")
+	}
+
+	if flagDict.workload == "" {
+		return errors.New("a workload must be provided")
+	}
+
 	return nil
 }
 
@@ -218,9 +233,9 @@ func convertTimeToTimestamp(timeString string) (int, error) {
 }
 
 // fetchTraceList fetches the trace list from the Grafana panel.
-func fetchTraceList(panelURL string, apiKey string) ([]TraceInfo, error) {
+func fetchTraceList(panelURL string, apiKey string, namespace string, workload string) ([]TraceInfo, error) {
 	// Select traces as many as possible (1145141919810 is a quite large number).
-	postContent := "db=flow_log&sql=SELECT toString(start_time) AS `start_time`, toString(end_time) as `end_time`, toString(_id) FROM l7_flow_log WHERE tap_port_type IN (7,8) AND (pod_ns_0 = 'deepflow-ebpf-istio-demo' OR pod_ns_1 = 'deepflow-ebpf-istio-demo') AND (pod_group_0 = 'loadgenerator' OR pod_group_1 = 'loadgenerator') AND request_resource = '/productpage' ORDER BY `start_time` LIMIT 1145141919810"
+	postContent := fmt.Sprintf("db=flow_log&sql=SELECT toString(start_time) AS `start_time`, toString(end_time) as `end_time`, toString(_id) FROM l7_flow_log WHERE tap_port_type IN (7,8) AND (pod_ns_0 = '%s' OR pod_ns_1 = '%s') AND (pod_group_0 = '%s' OR pod_group_1 = '%s') ORDER BY `start_time` LIMIT 1145141919810", namespace, namespace, workload, workload)
 
 	// Create request
 	req, err := http.NewRequest("POST", strings.TrimSuffix(panelURL, "/")+"/api/datasources/proxy/1/noauth/v1/query/", strings.NewReader(postContent))
